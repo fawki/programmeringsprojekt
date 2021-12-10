@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="1036.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SeriesController">
+    <children>
+      <HBox prefHeight="60.0" prefWidth="600.0">
+         <children>
+            <ButtonBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="53.0" prefWidth="1020.0">
+               <buttons>
+                  <Button mnemonicParsing="false" onAction="#changeToHome" text="Home" />
+                  <Button mnemonicParsing="false" text="My List" />
+                  <TextField fx:id="searchBar" onAction="#getSearchForMediaListener" prefHeight="25.0" prefWidth="262.0" />
+               </buttons>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </ButtonBar>
+         </children>
+      </HBox>
+      <HBox prefHeight="26.0" prefWidth="600.0" spacing="10.0">
+         <children>
+            <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="1088.0">
+               <children>
+                  <ChoiceBox fx:id="userChoiceBox" nodeOrientation="LEFT_TO_RIGHT" prefWidth="150.0" />
+               </children>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </HBox>
+         </children>
+      </HBox>
+      <Pane prefHeight="749.0" prefWidth="1036.0">
+         <children>
+            <ImageView fitHeight="264.0" fitWidth="224.0" layoutX="74.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../GitHub/programmeringsprojekt/projekt/resources/filmplakater/2001%20A%20Space%20Odyssey.jpg" />
+               </image>
+            </ImageView>
+            <VBox layoutX="292.0" layoutY="30.0" prefHeight="264.0" prefWidth="704.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2001: A Space Odyssey" wrappingWidth="373.13671875">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="- Year: " wrappingWidth="373.13671875">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="- Categories:" wrappingWidth="373.13671875">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="- Rating:" wrappingWidth="373.13671875">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+            <Button layoutX="441.0" layoutY="468.0" mnemonicParsing="false" text="Afspil">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
+            <Button layoutX="85.0" layoutY="302.0" mnemonicParsing="false" text="Tilføj til min liste">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+    </children>
+</VBox>
