@@ -1,5 +1,6 @@
 import java.util.*;
 
+// denne klasse eksisterer der kun en af pga den starter med enum
 public enum StreamingService {
     INSTANCE;
     private List<Media> medias;
@@ -15,7 +16,7 @@ public enum StreamingService {
         r = new Reader();
         this.medias = r.loadFiles();
 
-        // skaber tre brugere
+        // skaber tre brugere som man så kan skifte imellem
         users = new ArrayList<>();
         userSelma = new User("Selma");
         userJonas = new User("Jonas");
@@ -78,6 +79,7 @@ public enum StreamingService {
         return seriesInCategory;
     }
 
+    // finder alle film og returnerer dem
     public List<Media> getMovies() {
         List<Media> movieList = new ArrayList<>();
         for (Media m : medias) {
@@ -88,6 +90,7 @@ public enum StreamingService {
         return movieList;
     }
 
+    // finder alle serier og returnerer dem
     public List<Media> getSeries() {
         List<Media> seriesList = new ArrayList<>();
         for (Media m : medias) {

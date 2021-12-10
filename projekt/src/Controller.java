@@ -76,6 +76,7 @@ public class Controller {
                 public void handle(MouseEvent mouseEvent) {
                     Alert a = new Alert(Alert.AlertType.NONE);
 
+                    // skaber en pop-up hvor man kan se genre og titel
                     a.setHeaderText(m.getTitle());
                     a.setContentText("Genre: " + m.getGenre() + "\n" + "Rating: " + m.getRating());
                     ImageView popUpImage = new ImageView(image);
@@ -85,6 +86,7 @@ public class Controller {
                     ButtonType playButton = new ButtonType("Play Media");
                     ButtonType closeButton = new ButtonType("Close");
 
+                    // skaber en fjern-knap hvis mediet allerede er i min liste og en tilføj knap hvis den ikke er.
                     List<Media> currentUserList = streamingService.getCurrentUserList();
                     boolean alreadyInList = false;
                     for (Media mInMyList: currentUserList) {
@@ -116,6 +118,7 @@ public class Controller {
 
             p.getChildren().add(imageView);
         } catch (Exception e) {
+            // skriver noget tekst ind om at billede-filen ikke kunne findes
             Text text = new Text("ERROR: Could not load media: " + m.getImageUrl());
             text.setFont(new Font(32));
             p.getChildren().add(text);
@@ -158,6 +161,7 @@ public class Controller {
         displayMedias(medias);
     }
 
+    // tager teksten der er i søgefeltet og bruger det til at finde alle medier med det stykke tekst i sig
     @FXML
     private void getSearchForMediaListener() {
         List<Media> medias = streamingService.getSearchForMedia(searchBar.getText());
@@ -177,6 +181,7 @@ public class Controller {
         stage.show();
     }
 
+    // denne metode køres når der trykkes på myList og viser så derfra kun de medier der er i personens liste.
     @FXML
     protected void displayMyList() {
         movies.getChildren().clear();
