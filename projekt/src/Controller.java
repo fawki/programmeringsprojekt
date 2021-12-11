@@ -1,5 +1,4 @@
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -20,7 +18,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-public class Controller {
+public abstract class Controller {
     StreamingService streamingService = StreamingService.INSTANCE;
 
     protected Stage stage;
@@ -48,17 +46,17 @@ public class Controller {
         // sætter de tre brugere fra StreamingService ind i choiceboksen
         List<User> users = streamingService.getUsers();
         userChoiceBox.setItems(FXCollections.observableArrayList(users));
-        userChoiceBox.setValue(users.get(0).getName());
+        userChoiceBox.setValue(streamingService.getCurrentUser().getName());
 
         // initialiserer kategoriboksene
         seriesCategoryChoiceBox.setItems(FXCollections.observableArrayList("Talk-show", "Documentary", "Crime", "Drama", "Action", "Adventure", "Drama", "Comedy", "Fantasy", "Animation", "Horror", "Sci-fi", "War", "Thriller", "Mystery", "Biography", "History", "Family", "Western", "Romance", "Sport"));
         moviesCategoryChoiceBox.setItems(FXCollections.observableArrayList("Crime", "Drama", "Biography", "Sport", "History", "Romance", "War", "Mystery", "Adventure", "Family", "Fantasy", "Thriller", "Horror", "Film-Noir", "Action", "Sci-fi", "Comedy", "Musical", "Western", "Music"));
+        seriesCategoryChoiceBox.setValue("");
+        moviesCategoryChoiceBox.setValue("");
 
-        // indlæser alle medier og loader dem
+        // rydder alle nuværende medier
         movies.getChildren().clear();
         series.getChildren().clear();
-        displayMedias(streamingService.getMovies());
-        displayMedias(streamingService.getSeries());
     }
 
     // generel metode til at finde et billede og vise det
@@ -78,7 +76,8 @@ public class Controller {
 
                     // skaber en pop-up hvor man kan se genre og titel
                     a.setHeaderText(m.getTitle());
-                    a.setContentText("Genre: " + m.getGenre() + "\n" + "Rating: " + m.getRating());
+                    String contentText = "Year: " + m.getYear() + "\n" + "Genre: " + m.getGenre() + "\n" + "Rating: " + m.getRating();
+                    a.setContentText(contentText);
                     ImageView popUpImage = new ImageView(image);
                     a.setGraphic(popUpImage);
 
@@ -97,7 +96,7 @@ public class Controller {
                     }
                     if (alreadyInList) {
                         ButtonType removeFromMyList = new ButtonType("Remove from My List");
-                        a.getButtonTypes().setAll(playButton, removeFromMyList,closeButton);
+                        a.getButtonTypes().setAll(playButton, removeFromMyList, closeButton);
 
                         Optional<ButtonType> clickedButton = a.showAndWait();
                         if (clickedButton.get() == removeFromMyList) {
@@ -106,7 +105,7 @@ public class Controller {
                     }
                     else {
                         ButtonType addToMyList = new ButtonType("Add to My List");
-                        a.getButtonTypes().setAll(playButton, addToMyList,closeButton);
+                        a.getButtonTypes().setAll(playButton, addToMyList, closeButton);
 
                         Optional<ButtonType> clickedButton = a.showAndWait();
                         if (clickedButton.get() == addToMyList) {
@@ -139,36 +138,9 @@ public class Controller {
         }
     }
 
-    // alle de næste metoder er listeners som er forbundet til en specifik knap eller funktion og aktiveres så når den knap trykkes.
     @FXML
     protected void changeUserListener() {
         streamingService.changeUser(userChoiceBox.getValue().toString());
-    }
-
-    @FXML
-    private void getMoviesWithCategoryListener() {
-        List<Media> medias = streamingService.getMoviesWithCategory((String) moviesCategoryChoiceBox.getValue());
-
-        movies.getChildren().clear();
-        displayMedias(medias);
-    }
-
-    @FXML
-    private void getSeriesWithCategoryListener() {
-        List<Media> medias = streamingService.getSeriesWithCategory((String) seriesCategoryChoiceBox.getValue());
-
-        series.getChildren().clear();
-        displayMedias(medias);
-    }
-
-    // tager teksten der er i søgefeltet og bruger det til at finde alle medier med det stykke tekst i sig
-    @FXML
-    private void getSearchForMediaListener() {
-        List<Media> medias = streamingService.getSearchForMedia(searchBar.getText());
-
-        movies.getChildren().clear();
-        series.getChildren().clear();
-        displayMedias(medias);
     }
 
     // denne metode skifter tilbage til hovedsiden.
@@ -181,11 +153,13 @@ public class Controller {
         stage.show();
     }
 
-    // denne metode køres når der trykkes på myList og viser så derfra kun de medier der er i personens liste.
+    // denne metode skifter til myList.
     @FXML
-    protected void displayMyList() {
-        movies.getChildren().clear();
-        series.getChildren().clear();
-        displayMedias(streamingService.getCurrentUserList());
+    protected void changeToMyList(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MyList.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 }

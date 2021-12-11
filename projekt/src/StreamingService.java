@@ -31,6 +31,10 @@ public enum StreamingService {
         return medias;
     }
 
+    protected User getCurrentUser() {
+        return currentUser;
+    }
+
     public List<Media> getCurrentUserList() {
         return currentUser.getMyList();
     }
@@ -48,9 +52,9 @@ public enum StreamingService {
     }
 
     // find et medie og returner det
-    public List<Media> getSearchForMedia(String query) {
+    public List<Media> getSearchForMedia(String query, List<Media> mediaList) {
         List<Media> mediaInSearch = new ArrayList<>();
-        for (Media m : medias) {
+        for (Media m : mediaList) {
             if (m.getTitle().toLowerCase().contains(query.toLowerCase())) {
                 mediaInSearch.add(m);
             }
@@ -59,9 +63,9 @@ public enum StreamingService {
     }
 
     // find alle medier i en bestemt kategori og returner dem (displayes så af controlleren)
-    public List<Media> getMoviesWithCategory(String category) {
+    public List<Media> getMoviesWithCategory(String category, List<Media> mediaList) {
         List<Media> mediaInCategory = new ArrayList<>();
-        for (Media m : medias) {
+        for (Media m : mediaList) {
             if (m instanceof Movie && m.getGenre().contains(category)) {
                 mediaInCategory.add(m);
             }
@@ -69,35 +73,13 @@ public enum StreamingService {
         return mediaInCategory;
     }
 
-    public List<Media> getSeriesWithCategory(String category) {
+    public List<Media> getSeriesWithCategory(String category, List<Media> mediaList) {
         List<Media> seriesInCategory = new ArrayList<>();
-        for (Media m : medias) {
+        for (Media m : mediaList) {
             if (m instanceof Series && m.getGenre().contains(category)) {
                 seriesInCategory.add(m);
             }
         }
         return seriesInCategory;
-    }
-
-    // finder alle film og returnerer dem
-    public List<Media> getMovies() {
-        List<Media> movieList = new ArrayList<>();
-        for (Media m : medias) {
-            if (m instanceof Movie) {
-                movieList.add(m);
-            }
-        }
-        return movieList;
-    }
-
-    // finder alle serier og returnerer dem
-    public List<Media> getSeries() {
-        List<Media> seriesList = new ArrayList<>();
-        for (Media m : medias) {
-            if (m instanceof Series) {
-                seriesList.add(m);
-            }
-        }
-        return seriesList;
     }
 }

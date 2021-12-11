@@ -7,7 +7,8 @@ public class Series extends Media{
         this.imageUrl = "serieforsider/" + title + ".jpg";
     }
 
-    public String getYears(){
+    @Override
+    public String getYear(){
         return years;
     }
 }

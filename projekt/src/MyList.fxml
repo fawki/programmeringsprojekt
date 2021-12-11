@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="1036.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MyListController">
+    <children>
+        <HBox prefHeight="60.0" prefWidth="600.0">
+            <children>
+                <ButtonBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="53.0" prefWidth="1020.0">
+                    <buttons>
+                        <Button mnemonicParsing="false" onAction="#changeToHome" text="Home" />
+                        <Button mnemonicParsing="false" onAction="#changeToMyList" text="My List" />
+                  <TextField fx:id="searchBar" onAction="#getSearchForMediaListener" prefHeight="25.0" prefWidth="262.0" />
+                    </buttons>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+                </ButtonBar>
+            </children>
+         <VBox.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </VBox.margin>
+        </HBox>
+      <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="714.0">
+         <children>
+            <ChoiceBox fx:id="userChoiceBox" nodeOrientation="LEFT_TO_RIGHT" onAction="#changeUserListener" prefWidth="150.0">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </ChoiceBox>
+         </children>
+      </HBox>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Movies" wrappingWidth="148.53667640686035">
+         <font>
+            <Font size="32.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="10.0" />
+         </VBox.margin>
+      </Text>
+      <HBox prefHeight="26.0" prefWidth="600.0" spacing="10.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Choose category:" wrappingWidth="145.13671875">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Text>
+            <ChoiceBox fx:id="moviesCategoryChoiceBox" onAction="#getMoviesWithCategoryListener" prefWidth="150.0" />
+         </children>
+      </HBox>
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="392.0" prefWidth="1036.0">
+         <content>
+            <TilePane fx:id="movies" hgap="10.0" prefHeight="306.0" prefWidth="1021.0" vgap="10.0">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </TilePane>
+         </content>
+      </ScrollPane>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Series" wrappingWidth="148.53667640686035">
+         <font>
+            <Font size="32.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="10.0" />
+         </VBox.margin>
+      </Text>
+      <HBox prefHeight="26.0" prefWidth="600.0" spacing="10.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Choose category:" wrappingWidth="145.13671875">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <ChoiceBox fx:id="seriesCategoryChoiceBox" onAction="#getSeriesWithCategoryListener" prefWidth="150.0" />
+         </children>
+         <VBox.margin>
+            <Insets left="10.0" />
+         </VBox.margin>
+      </HBox>
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="447.0" prefWidth="1036.0">
+         <content>
+            <TilePane fx:id="series" hgap="10.0" prefHeight="328.0" prefWidth="1021.0" vgap="10.0">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </TilePane>
+         </content>
+      </ScrollPane>
+    </children>
+</VBox>

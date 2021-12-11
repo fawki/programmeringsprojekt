@@ -7,7 +7,8 @@ public class Movie extends Media{
         this.imageUrl = "filmplakater/" + title + ".jpg";
     }
 
-    public int getYear(){
-        return year;
+    @Override
+    public String getYear(){
+        return Integer.toString(year);
     }
 }
