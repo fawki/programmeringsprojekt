@@ -1,45 +1,37 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Reader {
-    private Scanner filmScanner;
+    private Scanner movieScanner;
     private Scanner seriesScanner;
     private List<Media> medias = new ArrayList<>();
 
-    public Reader(){
+    public Reader() {
         // Indlæser filer
-        File filmFile = new File("resources/film.txt");
-        File seriesFile = new File("resources/serier.txt");
+        InputStream movieFile = getClass().getResourceAsStream("film.txt");
+        InputStream seriesFile = getClass().getResourceAsStream("serier.txt");
 
-        try{
-            this.filmScanner = new Scanner(filmFile, "UTF-8");
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-
-        try{
-            this.seriesScanner = new Scanner(seriesFile, "UTF-8");
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
+        this.movieScanner = new Scanner(movieFile, "UTF-8");
+        this.seriesScanner = new Scanner(seriesFile, "UTF-8");
     }
 
     // Opdeler filerne i array
-    public List<Media> loadFiles(){
-        while(filmScanner.hasNextLine()) {
-            String nextFilm = filmScanner.nextLine();
-            String[] filmList = nextFilm.split(";");
+    public List<Media> loadFiles() {
+        while(movieScanner.hasNextLine()) {
+            String nextMovie = movieScanner.nextLine();
+            String[] movieList = nextMovie.split(";");
 
             // Fjerner mellemrum ved år, genre og ændre rating til double
-            filmList[1] = filmList[1].trim();
-            filmList[2] = filmList[2].trim();
-            // String[] filmGenre = filmList[2].split(",");
-            filmList[3] = filmList[3].replace(",",".");
+            movieList[1] = movieList[1].trim();
+            movieList[2] = movieList[2].trim();
+            // String[] filmGenre = movieList[2].split(",");
+            movieList[3] = movieList[3].replace(",",".");
 
-            Movie film = new Movie(filmList[0], Integer.parseInt(filmList[1]), filmList[2], Double.parseDouble(filmList[3]));
+            Movie film = new Movie(movieList[0], Integer.parseInt(movieList[1]), movieList[2], Double.parseDouble(movieList[3]));
             medias.add(film);
 
         }

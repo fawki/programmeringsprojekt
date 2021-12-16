@@ -14,12 +14,14 @@ import javafx.scene.text.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 public abstract class Controller {
-    StreamingService streamingService = StreamingService.INSTANCE;
+    StreamingService streamingService;
 
     protected Stage stage;
 
@@ -40,6 +42,10 @@ public abstract class Controller {
 
     @FXML
     protected TextField searchBar;
+
+    public Controller() {
+        streamingService = StreamingService.INSTANCE;
+    }
 
     @FXML
     protected void initialize() {
@@ -86,9 +92,9 @@ public abstract class Controller {
                     ButtonType closeButton = new ButtonType("Close");
 
                     // skaber en fjern-knap hvis mediet allerede er i min liste og en tilføj knap hvis den ikke er.
-                    List<Media> currentUserList = streamingService.getCurrentUserList();
+                    User currentUser = streamingService.getCurrentUser();
                     boolean alreadyInList = false;
-                    for (Media mInMyList: currentUserList) {
+                    for (Media mInMyList: currentUser.getMyList()) {
                         if (m == mInMyList) {
                             alreadyInList = true;
                             break;
@@ -100,7 +106,7 @@ public abstract class Controller {
 
                         Optional<ButtonType> clickedButton = a.showAndWait();
                         if (clickedButton.get() == removeFromMyList) {
-                            currentUserList.remove(m);
+                            currentUser.removeFromMyList(m);
                         }
                     }
                     else {
@@ -109,7 +115,7 @@ public abstract class Controller {
 
                         Optional<ButtonType> clickedButton = a.showAndWait();
                         if (clickedButton.get() == addToMyList) {
-                            currentUserList.add(m);
+                            currentUser.addToMyList(m);
                         }
                     }
                 }
@@ -118,11 +124,10 @@ public abstract class Controller {
             p.getChildren().add(imageView);
         } catch (Exception e) {
             // skriver noget tekst ind om at billede-filen ikke kunne findes
-            Text text = new Text("ERROR: Could not load media: " + m.getImageUrl());
-            text.setFont(new Font(32));
-            p.getChildren().add(text);
-            System.out.println("Media name: " + m.getImageUrl());
-            System.out.println(e.getMessage());
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setHeaderText("ERROR: Could not load media: " + m.getImageUrl());
+            a.setContentText(e.getMessage());
+            a.showAndWait();
         }
     }
 

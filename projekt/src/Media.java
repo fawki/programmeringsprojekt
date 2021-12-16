@@ -9,7 +9,6 @@ public class Media {
         this.title = title;
         this.genre = genre;
         this.rating = rating;
-        this.imageUrl = "hello";
     }
 
     public String getYear() {

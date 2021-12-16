@@ -6,6 +6,8 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
@@ -16,6 +18,14 @@
     <children>
         <HBox prefHeight="60.0" prefWidth="600.0">
             <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@jocama.jpg" />
+               </image>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </ImageView>
                 <ButtonBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="53.0" prefWidth="1020.0">
                     <buttons>
                         <Button mnemonicParsing="false" onAction="#changeToHome" text="Home" />
@@ -23,7 +33,7 @@
                   <TextField fx:id="searchBar" onAction="#getSearchForMediaListener" prefHeight="25.0" prefWidth="262.0" />
                     </buttons>
                <HBox.margin>
-                  <Insets />
+                  <Insets right="20.0" />
                </HBox.margin>
                 </ButtonBar>
             </children>

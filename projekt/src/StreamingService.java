@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.*;
 
 // denne klasse eksisterer der kun en af pga den starter med enum
@@ -12,7 +13,7 @@ public enum StreamingService {
     private User userJonas;
     private User userLucas;
 
-    private StreamingService(){
+    private StreamingService() {
         r = new Reader();
         this.medias = r.loadFiles();
 
@@ -33,10 +34,6 @@ public enum StreamingService {
 
     protected User getCurrentUser() {
         return currentUser;
-    }
-
-    public List<Media> getCurrentUserList() {
-        return currentUser.getMyList();
     }
 
     public List<User> getUsers() {
