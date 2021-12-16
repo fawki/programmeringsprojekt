@@ -44,7 +44,7 @@ public abstract class Controller {
     protected TextField searchBar;
 
     public Controller() {
-        streamingService = StreamingService.INSTANCE;
+        streamingService = StreamingService.getInstance();
     }
 
     @FXML
@@ -83,6 +83,9 @@ public abstract class Controller {
                     // skaber en pop-up hvor man kan se genre og titel
                     a.setHeaderText(m.getTitle());
                     String contentText = "Year: " + m.getYear() + "\n" + "Genre: " + m.getGenre() + "\n" + "Rating: " + m.getRating();
+                    if (m instanceof Series) {
+                        contentText += "\n" + "Seasons: " + ((Series) m).getSeasons();
+                    }
                     a.setContentText(contentText);
                     ImageView popUpImage = new ImageView(image);
                     a.setGraphic(popUpImage);

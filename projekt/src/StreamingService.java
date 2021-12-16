@@ -2,8 +2,8 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 // denne klasse eksisterer der kun en af pga den starter med enum
-public enum StreamingService {
-    INSTANCE;
+public final class StreamingService {
+    private static final StreamingService streamingService = new StreamingService();
     private List<Media> medias;
     private List<User> users;
     private Reader r;
@@ -28,6 +28,10 @@ public enum StreamingService {
         currentUser = userSelma;
     }
 
+    public static StreamingService getInstance() {
+        return streamingService;
+    }
+
     public List<Media> getMedias() {
         return medias;
     }
@@ -44,6 +48,7 @@ public enum StreamingService {
         for (User u : users) {
             if (desiredUser.equals(u.getName())) {
                 currentUser = u;
+                break;
             }
         }
     }

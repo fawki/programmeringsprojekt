@@ -1,7 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,8 +17,16 @@ public class Reader {
         InputStream movieFile = getClass().getResourceAsStream("film.txt");
         InputStream seriesFile = getClass().getResourceAsStream("serier.txt");
 
-        this.movieScanner = new Scanner(movieFile, "UTF-8");
-        this.seriesScanner = new Scanner(seriesFile, "UTF-8");
+        try {
+            this.movieScanner = new Scanner(movieFile, "UTF-8");
+        } catch (NullPointerException e) {
+            System.out.println("ERROR: Could not load file containing movies.");
+        }
+        try {
+            this.seriesScanner = new Scanner(seriesFile, "UTF-8");
+        } catch (NullPointerException e) {
+            System.out.println("ERROR: Could not load file containing series.");
+        }
     }
 
     // Opdeler filerne i array
@@ -51,26 +61,9 @@ public class Reader {
             seriesList[2] = seriesList[2].trim();
             // String[] seriesGenre = seriesList[2].split(",");
             seriesList[3] = seriesList[3].replace(",",".");
+            seriesList[4] = seriesList[4].trim();
 
-            /*
-            // Splitter sæsoner
-            String[] tempSeasons = seriesList[4].trim().split(",");
-
-            // Arrays til sæsoner og episoder
-            int[] seasons = new int[tempSeasons.length];
-            int[] episodes = new int[tempSeasons.length];
-
-            // Fylder ovenstående arrays
-            for(int i = 0; i < tempSeasons.length; i++){
-                seasons[i] = Integer.parseInt(tempSeasons[i].substring(0, tempSeasons[i].indexOf("-")));
-            }
-
-            for(int i = 0; i < tempSeasons.length; i++){
-                episodes[i] = Integer.parseInt(tempSeasons[i].substring(tempSeasons[i].indexOf("-"), -1));
-            }
-            */
-
-            Series serie = new Series(seriesList[0], seriesList[1], seriesList[2], Double.parseDouble(seriesList[3]));
+            Series serie = new Series(seriesList[0], seriesList[1], seriesList[2], Double.parseDouble(seriesList[3]), seriesList[4]);
             medias.add(serie);
         }
 
