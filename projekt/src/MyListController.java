@@ -1,12 +1,4 @@
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.TilePane;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.util.List;
 
 public class MyListController extends Controller{

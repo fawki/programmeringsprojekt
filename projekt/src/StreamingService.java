@@ -1,4 +1,3 @@
-import java.io.FileNotFoundException;
 import java.util.*;
 
 // denne klasse eksisterer der kun en af pga den starter med enum

@@ -1,5 +1,3 @@
-import java.util.HashMap;
-
 public class Series extends Media{
     private String years;
     private String seasons;

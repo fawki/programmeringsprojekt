@@ -1,4 +1,3 @@
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -53,6 +52,19 @@ public class Tester {
         assertEquals(13, correctMedia);
     }
 
+    // søger efter en specifik serie og tjekker om streamingService-klassen finder den samme
+    @Test
+    public void searchSeriesTest() {
+        List<Media> medias = streamingService.getMedias();
+        List<Media> testMedia = new ArrayList<>();
+
+        Series serie = new Series("Breaking Bad", "2008-2013", "Crime, Drama, Thriller", 9.5, "1-7, 2-13, 3-13, 4-13, 5-16");
+
+        testMedia.add(serie);
+        List<Media> resultMedia = streamingService.getSearchForMedia("Breaking Bad", medias);
+        assertEquals(serie.getTitle(), resultMedia.get(0).getTitle());
+    }
+
     // tilføjer to film til brugerens liste og tjekker om de bliver korrekt tilføjet
     @Test
     public void addToMyListTest(){
@@ -91,6 +103,7 @@ public class Tester {
         assertEquals("Lucas", streamingService.getCurrentUser().getName());
     }
 
+    // tjekker om streamingService-klassen altid er samme instans
     @Test
     public void streamingServiceInstancesTest() {
         StreamingService streamingService1 = StreamingService.getInstance();
